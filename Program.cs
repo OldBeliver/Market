@@ -147,6 +147,11 @@ namespace Market
 
     class Market
     {
+        const string SellerItemsCommand = "1";
+        const string BuyerItemsCommand = "2";
+        const string BuyItem = "3";
+        const string ExitCommand = "4";
+        
         private Seller _seller = new Seller(0);
         private Buyer _buyer = new Buyer(1000);
         private bool _isOpen = true;
@@ -197,10 +202,10 @@ namespace Market
         {            
             Console.WriteLine($"Лавка компьютерных товаров");
             Console.WriteLine($"{new string('-', 35)}");
-            Console.WriteLine($"1. Товары продавца");
-            Console.WriteLine($"2. Сумка покупателя");
-            Console.WriteLine($"3. Купить товар");
-            Console.WriteLine($"4. Выйти");
+            Console.WriteLine($"{SellerItemsCommand}. Товары продавца");
+            Console.WriteLine($"{BuyerItemsCommand}. Сумка покупателя");
+            Console.WriteLine($"{BuyItem}. Купить товар");
+            Console.WriteLine($"{ExitCommand}. Выйти");
             Console.WriteLine($"{new string('-', 35)}");
 
         }
@@ -209,19 +214,19 @@ namespace Market
         {
             switch (command)
             {
-                case "1":
+                case SellerItemsCommand:
                     _seller.ShowItems();
                     break;
 
-                case "2":
+                case BuyerItemsCommand:
                     _buyer.ShowItems();
                     break;
 
-                case "3":
+                case BuyItem:
                     Trade();
                     break;
 
-                case "4":
+                case ExitCommand:
                     _isOpen = false;
                     break;
 
