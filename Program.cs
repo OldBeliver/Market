@@ -207,7 +207,6 @@ namespace Market
             Console.WriteLine($"{BuyItem}. Купить товар");
             Console.WriteLine($"{ExitCommand}. Выйти");
             Console.WriteLine($"{new string('-', 35)}");
-
         }
 
         private void ExecuteUserCommand(string command)
