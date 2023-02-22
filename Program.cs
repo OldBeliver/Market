@@ -165,8 +165,29 @@ namespace Market
 
                 Console.WriteLine($"Введите номер команды:");
                 string userCommand = Console.ReadLine();
+               
+                switch (userCommand)
+                {
+                    case SellerItemsCommand:
+                        _seller.ShowItems();
+                        break;
 
-                ExecuteUserCommand(userCommand);                
+                    case BuyerItemsCommand:
+                        _buyer.ShowItems();
+                        break;
+
+                    case BuyItem:
+                        Trade();
+                        break;
+
+                    case ExitCommand:
+                        _isOpen = false;
+                        break;
+
+                    default:
+                        Console.WriteLine($"Ошибка ввода команды");
+                        break;
+                }
 
                 Console.ReadKey();
             }
@@ -207,32 +228,6 @@ namespace Market
             Console.WriteLine($"{BuyItem}. Купить товар");
             Console.WriteLine($"{ExitCommand}. Выйти");
             Console.WriteLine($"{new string('-', 35)}");
-        }
-
-        private void ExecuteUserCommand(string command)
-        {
-            switch (command)
-            {
-                case SellerItemsCommand:
-                    _seller.ShowItems();
-                    break;
-
-                case BuyerItemsCommand:
-                    _buyer.ShowItems();
-                    break;
-
-                case BuyItem:
-                    Trade();
-                    break;
-
-                case ExitCommand:
-                    _isOpen = false;
-                    break;
-
-                default:
-                    Console.WriteLine($"Ошибка ввода команды");
-                    break;
-            }
-        }
+        }       
     }
 }
