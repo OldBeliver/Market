@@ -65,7 +65,7 @@ namespace Market
     {
         public Seller(int money):base ( money)
         {
-            Items = Fill();
+            Items = CreateProducts();
         }
 
         public override void ShowItems()
@@ -73,6 +73,7 @@ namespace Market
             Console.WriteLine($"Товары продавца:");
             base.ShowItems();
         }
+
         public Item GetItem(int index)
         {
             return Items[index];
@@ -100,7 +101,7 @@ namespace Market
             Items.Remove(item);
         }
 
-        private List<Item> Fill()
+        private List<Item> CreateProducts()
         {
             List<Item> items = new List<Item>()
             {
@@ -124,7 +125,7 @@ namespace Market
             Items = new List<Item>();
         }
 
-        public bool IsCanPay(int cost)
+        public bool CanPay(int cost)
         {
             return Money >= cost;
         }
@@ -184,7 +185,7 @@ namespace Market
             Item item = _seller.GetItem(index);
             item.ShowInfo();
 
-            if (_buyer.IsCanPay(item.Price))
+            if (_buyer.CanPay(item.Price))
             {
                 _seller.Sell(item);
                 _buyer.Buy(item);
