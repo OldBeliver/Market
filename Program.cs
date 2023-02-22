@@ -16,19 +16,18 @@ namespace Market
     class Item
     {
         private string _name;
-        private int _price;
 
         public Item(string name, int price)
         {
             _name = name;
-            _price = price;
+            Price = price;
         }
 
-        public int Price => _price;
+        public int Price { get; private set; }
 
         public void ShowInfo()
         {
-            Console.WriteLine($"{_name.PadRight(25)} {_price.ToString().PadLeft(5)}");
+            Console.WriteLine($"{_name.PadRight(25)} {Price.ToString().PadLeft(5)}");
         }
     }
 
