@@ -61,9 +61,9 @@ namespace Market
         }
     }
 
-    class Seller: Human
+    class Seller : Human
     {
-        public Seller(int money):base ( money)
+        public Seller(int money) : base(money)
         {
             Items = CreateProducts();
         }
@@ -91,8 +91,28 @@ namespace Market
                     return true;
                 }
             }
-            
+
             return false;
+        }
+
+        public bool TryGetItem(out Item item)
+        {
+            Console.WriteLine($"Введите номер товара");
+
+            if (int.TryParse(Console.ReadLine(), out int number) == false)
+            {
+                item = null;
+                return false;
+            }
+
+            if (number <= 0 || number > Items.Count)
+            {
+                item = null;
+                return false;
+            }
+
+            item = Items[number - 1];
+            return true;
         }
 
         public void Sell(Item item)
@@ -117,9 +137,9 @@ namespace Market
         }
     }
 
-    class Buyer: Human
+    class Buyer : Human
     {
-        public Buyer(int money):base(money)
+        public Buyer(int money) : base(money)
         {
             Money = money;
             Items = new List<Item>();
@@ -151,7 +171,7 @@ namespace Market
         const string BuyerItemsCommand = "2";
         const string BuyItem = "3";
         const string ExitCommand = "4";
-        
+
         private Seller _seller = new Seller(0);
         private Buyer _buyer = new Buyer(1000);
         private bool _isOpen = true;
@@ -165,7 +185,7 @@ namespace Market
 
                 Console.WriteLine($"Введите номер команды:");
                 string userCommand = Console.ReadLine();
-               
+
                 switch (userCommand)
                 {
                     case SellerItemsCommand:
@@ -197,13 +217,20 @@ namespace Market
         {
             _seller.ShowItems();
 
-            if (_seller.GetItemIndex(out int index)==false)
+            //if (_seller.GetItemIndex(out int index)==false)
+            //{
+            //    Console.WriteLine($"Ошибка ввода данных");
+            //    return;
+            //}
+
+            //Item item = _seller.GetItem(index);
+
+            if (_seller.TryGetItem(out Item item) == false)
             {
-                Console.WriteLine($"Ошибка ввода данных");
+                Console.WriteLine($"Такого товара нет");
                 return;
             }
 
-            Item item = _seller.GetItem(index);
             item.ShowInfo();
 
             if (_buyer.CanPay(item.Price))
@@ -220,7 +247,7 @@ namespace Market
         }
 
         private void ShowMenu()
-        {            
+        {
             Console.WriteLine($"Лавка компьютерных товаров");
             Console.WriteLine($"{new string('-', 35)}");
             Console.WriteLine($"{SellerItemsCommand}. Товары продавца");
@@ -228,6 +255,6 @@ namespace Market
             Console.WriteLine($"{BuyItem}. Купить товар");
             Console.WriteLine($"{ExitCommand}. Выйти");
             Console.WriteLine($"{new string('-', 35)}");
-        }       
+        }
     }
 }
